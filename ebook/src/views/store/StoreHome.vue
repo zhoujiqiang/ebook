@@ -2,70 +2,9 @@
     <div class="store-home">
         <search-bar></search-bar>
         <scroll :top="scrollTop" @onScroll="onScroll" ref="Scroll">
-            <div>1111</div>
-             <div>1111</div>
-              <div>1111</div>
-               <div>1111</div>
-                <div>1111</div>
-                <div>1111</div>
-             <div>1111</div>
-              <div>1111</div>
-               <div>1111</div>
-                <div>1111</div>
-                <div>1111</div>
-             <div>1111</div>
-              <div>1111</div>
-               <div>1111</div>
-                <div>1111</div>
-                <div>1111</div>
-             <div>1111</div>
-              <div>1111</div>
-               <div>1111</div>
-                <div>1111</div>
-                <div>1111</div>
-             <div>1111</div>
-              <div>1111</div>
-               <div>1111</div>
-                <div>1111</div>
-                <div>1111</div>
-             <div>1111</div>
-              <div>1111</div>
-               <div>1111</div>
-                <div>1111</div>
-                <div>1111</div>
-              <div>1111</div>
-               <div>1111</div>
-                <div>1111</div>
-                <div>1111</div>
-             <div>1111</div>
-              <div>1111</div>
-               <div>1111</div>
-                <div>1111</div>
-                <div>1111</div>
-             <div>1111</div>
-              <div>1111</div>
-               <div>1111</div>
-                <div>1111</div>
-                <div>1111</div>
-             <div>1111</div>
-              <div>1111</div>
-               <div>1111</div>
-                <div>1111</div>
-                <div>1111</div>
-             <div>1111</div>
-              <div>1111</div>
-               <div>1111</div>
-                <div>1111</div>
-                   <div>1111</div>
-             <div>1111</div>
-              <div>1111</div>
-               <div>1111</div>
-                <div>1111</div>
-                <div>1111</div>
-             <div>1111</div>
-              <div>1111</div>
-               <div>1111</div>
-      
+        <div class="banner-wrapper">
+            <div class="banner-img" :style="{backgroundImage:`url('${banner}')`}"> </div>
+        </div>
         </scroll>
     </div>
 </template>
@@ -83,7 +22,8 @@ export default {
     data() {
         return{
             scrollTop:120,
-            random:null
+            random:null,
+            banner:null
         }
     },
     methods:{
@@ -104,7 +44,8 @@ export default {
              const randomIndex =Math.floor( Math.random() * data.random.length)
              console.log(randomIndex)
              this.random = data.random[randomIndex]
-             console.log(this.random)
+             this.banner = data.banner
+             console.log(this.  banner)
           }
           
       })
@@ -116,8 +57,19 @@ export default {
 @import '../../assets/style/global';
 .store-home{
     width: 100%;
-     height: 100%;
+     height: 100%; 
+ .banner-wrapper{
+     width:100%;
+     padding: px2rem(15);
+     box-sizing: border-box;
+     .banner-img{
+         width: 100%;
+         height: px2rem(300);
+         background-repeat: no-repeat;
+         background-size: 100% 100%; 
 
+     }
+ }
 }
 </style>
 

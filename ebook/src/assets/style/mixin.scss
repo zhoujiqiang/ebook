@@ -1,0 +1,40 @@
+$ratio: 375 / 10;
+
+@function px2rem($px){
+    @return $px / $ratio + rem;
+}
+@mixin center {
+    display : flex;
+    justify-content: center;
+    align-content: center;
+}
+@mixin right {
+    display: flex;
+    justify-content: right;
+    align-content: right;
+}
+@mixin left {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+@mixin columnLeft {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.icon{
+    color:#666;
+    font-size: px2rem(50); 
+}
+.text{
+    color:#666;
+    font-size: px2rem(50);
+    font-weight: bold;
+}
+.icon1{
+    color:#666;
+    font-size: px2rem(14); 
+}

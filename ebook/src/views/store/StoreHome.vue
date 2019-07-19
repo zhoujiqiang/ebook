@@ -6,6 +6,11 @@
             <div class="banner-img" :style="{backgroundImage:`url('${banner}')`}"> </div>
         </div>
         <guess-you-like :data="guessYouLike"></guess-you-like>
+        <recommend :data="Recommend" class="recommend"></recommend>
+        <featured :data="featured" :titleText="$t('home.featured')" :btnText="$t('home.seeAll')" class="featured"></featured>
+         <div class="category-list-wrapper" v-for="(item, index) in categoryList">
+           <category-book :data="item"></category-book>  
+         </div>
         </scroll>
     </div>
 </template>
@@ -15,19 +20,29 @@ import Scroll from '../../components/common/Scroll'
 import {StorehomeMixin} from '../../untils/mixin'
 import { home } from '../../api/store'
 import GuessYouLike from '../../components/home/GuessYouLike'
+import Recommend from '../../components/home/recommend'
+import Featured from '../../components/home/feature'
+import CategoryBook from '../../components/home/categorybook'
+import { categoryList } from '../../untils/store';
 export default {
     mixins:[StorehomeMixin],    
     components: {
         SearchBar,
         Scroll,
-        GuessYouLike
+        GuessYouLike,
+        Recommend,
+        Featured,
+        CategoryBook
     },
     data() {
         return{
             scrollTop:120,
             random:null,
             banner:null,
-            guessYouLike: null
+            guessYouLike: null,
+            Recommend: null,
+             featured:null,
+             categoryList:null
         }
     },
     methods:{
@@ -49,6 +64,10 @@ export default {
              this.random = data.random[randomIndex]
              this.banner = data.banner
             this.guessYouLike = data.guessYouLike
+            this.Recommend = data.recommend
+            this.featured = data.featured
+            this.categoryList=data.categoryList
+           console.log(categoryList)
           }
           
       })
@@ -72,6 +91,12 @@ export default {
          background-size: 100% 100%; 
 
      }
+ }
+ .recommend{
+     margin-top: px2rem(20);
+ }
+ .featured{
+     margin-top: px2rem(20);
  }
 }
 </style>

@@ -5,6 +5,7 @@
         <div class="banner-wrapper">
             <div class="banner-img" :style="{backgroundImage:`url('${banner}')`}"> </div>
         </div>
+        <guess-you-like :data="guessYouLike"></guess-you-like>
         </scroll>
     </div>
 </template>
@@ -13,17 +14,20 @@ import SearchBar from '../../components/home/SearchBar'
 import Scroll from '../../components/common/Scroll'
 import {StorehomeMixin} from '../../untils/mixin'
 import { home } from '../../api/store'
+import GuessYouLike from '../../components/home/GuessYouLike'
 export default {
     mixins:[StorehomeMixin],    
     components: {
         SearchBar,
-        Scroll
+        Scroll,
+        GuessYouLike
     },
     data() {
         return{
             scrollTop:120,
             random:null,
-            banner:null
+            banner:null,
+            guessYouLike: null
         }
     },
     methods:{
@@ -42,10 +46,9 @@ export default {
           if(Response && Response.status == 200){
               const data = Response.data
              const randomIndex =Math.floor( Math.random() * data.random.length)
-             console.log(randomIndex)
              this.random = data.random[randomIndex]
              this.banner = data.banner
-             console.log(this.  banner)
+            this.guessYouLike = data.guessYouLike
           }
           
       })

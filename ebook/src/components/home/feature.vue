@@ -11,7 +11,6 @@
                     <div class="title-title-small" ref="title">{{item.title}}</div>
                     <div class="author-suv-title-tiny" ref="author">{{item.author}}</div>
                     <div class="category-third-title-tiny" ref="category">{{categoryText(item.category)}}</div>
-               
                 </div>
             </div>
         </div>
@@ -110,5 +109,4 @@ export default {
         }
     }
 }
-</style>
-
+</style>   

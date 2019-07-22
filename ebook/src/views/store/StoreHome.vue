@@ -9,30 +9,33 @@
         <recommend :data="Recommend" class="recommend"></recommend>
         <featured :data="featured" :titleText="$t('home.featured')" :btnText="$t('home.seeAll')" class="featured"></featured>
          <div class="category-list-wrapper" v-for="(item, index) in categoryList">
-           <category-book :data="item"></category-book>  
+           <category-book :data="item"></category-book>   
          </div>
+         <category class="category" :data="categories"></category>
         </scroll>
     </div>
 </template>
 <script>
 import SearchBar from '../../components/home/SearchBar'
 import Scroll from '../../components/common/Scroll'
-import {StorehomeMixin} from '../../untils/mixin'
+import { StorehomeMixin } from '../../untils/mixin'
 import { home } from '../../api/store'
 import GuessYouLike from '../../components/home/GuessYouLike'
 import Recommend from '../../components/home/recommend'
 import Featured from '../../components/home/feature'
 import CategoryBook from '../../components/home/categorybook'
-import { categoryList } from '../../untils/store';
+import { categoryList } from '../../untils/store'
+import Category from '../../components/home/category'
 export default {
-    mixins:[StorehomeMixin],    
+    mixins:[ StorehomeMixin ],    
     components: {
         SearchBar,
         Scroll,
         GuessYouLike,
         Recommend,
         Featured,
-        CategoryBook
+        CategoryBook,
+        Category
     },
     data() {
         return{
@@ -41,8 +44,9 @@ export default {
             banner:null,
             guessYouLike: null,
             Recommend: null,
-             featured:null,
-             categoryList:null
+            featured:null,
+            categoryList:null,
+            categories: null
         }
     },
     methods:{
@@ -66,8 +70,9 @@ export default {
             this.guessYouLike = data.guessYouLike
             this.Recommend = data.recommend
             this.featured = data.featured
-            this.categoryList=data.categoryList
-           console.log(categoryList)
+            this.categoryList = data.categoryList
+            this.categories = data.categories
+           console.log(data.categories)
           }
           
       })
@@ -97,6 +102,12 @@ export default {
  }
  .featured{
      margin-top: px2rem(20);
+ }
+ .category-list-wrapper{
+     margin-top: px2rem(20);
+ }
+ .category{
+      margin-top: px2rem(20);
  }
 }
 </style>

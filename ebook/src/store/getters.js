@@ -14,7 +14,11 @@ const book = {
     metadata:state => state.book.metadata,
     navigation:state => state.book.navigation,
     offsetY:state => state.book.offsetY,
-    HotSearchoffsetY:state => state.store.HotSearchoffsetY
+    HotSearchoffsetY:state => state.store.HotSearchoffsetY,
+    isEditMode:state => state.store.isEditMode,
+    shelfSelected:state => state.store.shelfSelected,
+    shelfTitleVisible:state => state.store.shelfTitleVisible,
+    ShelfList:state => state.store.ShelfList
 }
 export default book
 

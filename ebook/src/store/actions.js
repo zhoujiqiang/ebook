@@ -45,7 +45,19 @@ const actions = {
         return commit('SET_offsetY', offsetY)
       },
       'setHotSearchoffsetY': ({ commit }, offsetY) => {
-        return commit('SET_HotSearchoffsetY',offsetY)
+        return commit('SET_HotSearchoffsetY', offsetY)
+      },
+      'setISEditMode': ({ commit }, ISEditMode) => {
+        return commit('SET_ISEditMode', ISEditMode)
+      },
+      'setshelfSelected': ({ commit }, shelfSelected) => {
+        return commit('SET_shelfSelected', shelfSelected)
+      },
+      'setshelfTitleVisible':({ commit }, shelfTitleVisible) => {
+        return commit('SET_shelfTitleVisible', shelfTitleVisible)
+      },
+      'setShelfList':({ commit }, ShelfList) => {
+        return commit('SET_ShelfList', ShelfList)
       }
 }
 export default actions

@@ -12,7 +12,7 @@
         <div class="title-icon-shake-wrapper">
               <span class="icon-shake icon"> </span>
         </div>
-      </div>
+    </div>
       </transition>
     <div class="search-bar-input-wrapper" :class="{'hide-title' :!titleVisible}">
         <div class="search-bar-blank"></div>
@@ -55,7 +55,11 @@ export default {
     } ,
     methods:{
         back(){
-            this.hidehotSearch()
+            if(this.hotSearchVisible){
+                 this.hidehotSearch()
+            }else{
+                this.$router.push('/store/shelf')
+            }
         },
         hidehotSearch(){
             this.hotSearchVisible = false

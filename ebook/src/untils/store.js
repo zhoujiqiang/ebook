@@ -1,3 +1,9 @@
+
+import Vue from 'vue'
+import Router from 'vue-router'
+
+Vue.use(Router)
+
 export function showBookDetail(vue, book) {
   vue.$router.push({
     path: '/store/detail',
@@ -84,7 +90,7 @@ export function getCategoryName(id) {
   }
 }
 
-export function categoryText(category, vue) {
+export function categoryText (category, vue) {
   switch (category) {
     case 1:
       return vue.$t('category.computerScience')
@@ -131,4 +137,16 @@ export function categoryText(category, vue) {
     case 22:
       return vue.$t('category.statistics')
   }
+}
+
+export function AppendAddToShelf (list) {
+ list.push({
+   id: -1,
+   type:3
+ })
+ return list
+}
+
+export function RemoveAddFormShelf (list) {
+  return list.filter(item => item.type !== 3)
 }

@@ -45,6 +45,10 @@ export default {
     },
     methods:{
         onEditClick(){
+            if(!this.isEditMode){
+                this.setshelfSelected([])
+                this.ShelfList.forEach(item => {item.selected = false})
+            }
             this.setISEditMode(!this.isEditMode)     
         },
         clearCache(){

@@ -42,15 +42,57 @@ export default {
             ]
         }
     },
-    methods:{
-      onTabClick(item){
-        this.$createToast({
-          $props:{
-            text:'hello BOC'
-          }
-        }).show()
+    data(){
+      return{
+        popupMenu:null
       }
-    }
+    },
+    methods:{
+      hidePopup(){
+        this.popupMenu.hide()
+      },
+      setPrivate(){
+        this.hidePopup()
+      },
+      showPrivate(){
+          this.popupMenu = this.popup({
+          title:this.$t('shelf.setPrivateTitle'),
+          btn: [
+            {
+              text: this.$t('shelf.open'),
+              click:() => {
+               this.setPrivate()
+              }
+            },
+             {
+              text:this.$t('shelf.cancel'),
+              click:() => {
+                this.hidePopup()
+              }
+             }
+          ]
+          }).show()
+        },
+          onTabClick(item){
+        if(!this.isSelected){
+          return
+        }
+        switch(item.index){
+          case 1: 
+          this.showPrivate()
+            break
+          case 2:
+            break
+          case 3:
+            break
+          case 4:
+            break
+          default:
+            break
+        }
+      
+      }
+  }
 }
 </script>
 <style lang="scss" scoped>

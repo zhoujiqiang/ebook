@@ -51,7 +51,7 @@ const actions = {
         return commit('SET_ISEditMode', ISEditMode)
       },
       'setshelfSelected': ({ commit }, shelfSelected) => {
-        return commit('SET_shelfSelected', shelfSelected)
+        return commit('SET_ShelfSelected', shelfSelected)
       },
       'setshelfTitleVisible':({ commit }, shelfTitleVisible) => {
         return commit('SET_shelfTitleVisible', shelfTitleVisible)

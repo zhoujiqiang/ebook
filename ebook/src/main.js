@@ -6,6 +6,7 @@ import store from './store/index'
 import './mock'
 import './assets/style/icon.css'
 import './assets/style/global.scss'
+import './untils/boost'
 
 Vue.config.productionTip = false
 

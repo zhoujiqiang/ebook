@@ -2,7 +2,7 @@ const store = {
     state:{
         HotSearchoffsetY: 0,
         isEditMode: false,
-        shelfSelected:[ 1, 2, 3 ],
+        shelfSelected:[],
         shelfTitleVisible:true,
         offsetY:0,
         ShelfList:[]

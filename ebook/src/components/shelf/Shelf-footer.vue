@@ -2,7 +2,7 @@
     <div class="shelf-footer" v-show="isEditMode">
       <div class="shelf-footer-tab-wrapper" v-for="item in tabs" :key="item.index" @click="onTabClick(item)">
         <div class="shelf-footer-tab" >
-          <div class="icon-private tab-icon"  :class="{'is-selected': isSelected}" v-if="item.index ===1"></div>
+          <div class="icon-private tab-icon"  :class="{'is-selected': isSelected }" v-if="item.index ===1"></div>
           <div class="icon-download tab-icon" :class="{'is-selected': isSelected}"  v-if="item.index ===2"></div>
           <div class="icon-move tab-icon" :class="{'is-selected': isSelected}" v-if="item.index ===3"></div>
           <div class="icon-shelf tab-icon" :class="{'is-selected': isSelected}" v-if="item.index ===4"></div>
@@ -44,7 +44,11 @@ export default {
     },
     methods:{
       onTabClick(item){
-
+        this.$createToast({
+          $props:{
+            text:'hello BOC'
+          }
+        }).show()
       }
     }
 }

@@ -3,11 +3,15 @@
         <div class="store-title">
         <shelf-title></shelf-title>
         </div>
-        <scroll class="shelf-scroll-wrapper" :top="0"
-                @onScroll="onScroll">
+        <scroll class="shelf-scroll-wrapper" 
+            :top="0"
+            :bottom="scrollBottom"
+            @onScroll="onScroll"
+            ref="Scroll">
              <shelf-search></shelf-search>
              <shelf-list :datalist="datalist"></shelf-list>
         </scroll>
+        <shelf-footer></shelf-footer>
     </div>    
 </template>
 
@@ -20,10 +24,21 @@ import Scroll from '../../components/common/Scroll'
 import {  home } from '../../api/store'
 import { shelf } from '../../api/store'
 import { AppendAddToShelf} from '../../untils/store'
+import ShelfFooter from '../../components/shelf/Shelf-footer'
 export default {
+    watch:{
+        isEditMode(isEditMode){
+            this.scrollBottom = isEditMode ? 48 : 0
+            this.$nextTick(()=>{
+                this.$refs.Scroll.refresh()
+            })
+          
+        }
+    },
     data(){
         return{
-            datalist:null
+            datalist:null,
+            scrollBottom:0
         }
     },
     mixins: [storeShelfMixin],
@@ -31,7 +46,8 @@ export default {
         ShelfTitle,
         Scroll,
         ShelfSearch,
-        ShelfList
+        ShelfList,
+        ShelfFooter
     },
     methods:{
         onScroll(offsetY){

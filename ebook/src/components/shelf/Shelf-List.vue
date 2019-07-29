@@ -44,9 +44,9 @@ export default {
     left:0;
     z-index:50;
     display: flex;
-    flex-flow:row wrap;
+    flex-flow:row wrap; 
     width: 100%;
-    padding: 0 px2rem(15);
+    padding: 0 px2rem(15) 0 px2rem(15);
     box-sizing: border-box;
     .shelf-list-item-wrapper{
      flex:0 0 33.33%;

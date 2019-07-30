@@ -9,7 +9,7 @@
             @onScroll="onScroll"
             ref="Scroll">
              <shelf-search></shelf-search>
-             <shelf-list :datalist="datalist"></shelf-list>
+             <shelf-list :datalist="ShelfList"></shelf-list>
         </scroll>
         <shelf-footer></shelf-footer>
     </div>    
@@ -61,7 +61,7 @@ export default {
                 const data = res.data
                 this.datalist = data.bookList
                 this.setShelfList (AppendAddToShelf(this.datalist))
-                console.log(this.datalist)
+                console.log(this.ShelfList)
             }
         })
     }

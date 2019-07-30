@@ -2,17 +2,19 @@
     <div class="shelf-footer" v-show="isEditMode">
       <div class="shelf-footer-tab-wrapper" v-for="item in tabs" :key="item.index" @click="onTabClick(item)">
         <div class="shelf-footer-tab" >
-          <div class="icon-private tab-icon"  :class="{'is-selected': isSelected }" v-if="item.index ===1"></div>
+          <div class="icon-private tab-icon"  :class="{'is-selected': isSelected }" v-if="item.index ===1 && !isPrivate"></div>
+          <div class="icon-private-see tab-icon" v-if="item.index ===1 && isPrivate"></div>
           <div class="icon-download tab-icon" :class="{'is-selected': isSelected}"  v-if="item.index ===2"></div>
           <div class="icon-move tab-icon" :class="{'is-selected': isSelected}" v-if="item.index ===3"></div>
           <div class="icon-shelf tab-icon" :class="{'is-selected': isSelected}" v-if="item.index ===4"></div>
-          <div class="tab-text" :class="{'is-selected': isSelected}" >{{item.label}}</div>
+          <div class="tab-text" :class="{'is-selected': isSelected}" >{{label(item)}}</div>
         </div>
       </div>
     </div>
 </template>
 <script>
-import { storeShelfMixin } from  '../../untils/mixin'   
+import { storeShelfMixin } from  '../../untils/mixin' 
+import {saveBookShelf}   from'../../untils/localstorage'
 export default {
     mixins: [storeShelfMixin],
     computed:{
@@ -40,6 +42,13 @@ export default {
                   index:4
                 },
             ]
+        },
+        isPrivate(){
+          if(!this.isSelected){
+            return false
+          }else {
+            return this.shelfSelected.every(item => item.private)
+          }
         }
     },
     data(){
@@ -52,7 +61,23 @@ export default {
         this.popupMenu.hide()
       },
       setPrivate(){
+        let isPrivate
+        if(this.isPrivate){
+          isPrivate = false
+        }else{
+          isPrivate = true 
+        }
+        this.shelfSelected.forEach(book => {
+          book.private = isPrivate 
+        })  
         this.hidePopup()
+        this.setISEditMode(false)
+        saveBookShelf(this.ShelfList)
+        if(isPrivate){
+          this.simpletoast(this.$t('shelf.setPrivateSuccess'))
+        }else{
+            this.simpletoast(this.$t('shelf.closePrivateSuccess'))
+        }
       },
       showPrivate(){
           this.popupMenu = this.popup({
@@ -73,7 +98,7 @@ export default {
           ]
           }).show()
         },
-          onTabClick(item){
+      onTabClick(item){
         if(!this.isSelected){
           return
         }
@@ -91,6 +116,14 @@ export default {
             break
         }
       
+      },
+      label(item){
+        switch(item.index){
+          case 1:
+            return this.isPrivate ? item.label2 : item.label
+          default:
+            return item.label
+        }
       }
   }
 }

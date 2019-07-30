@@ -17,6 +17,11 @@
             return this.$createPopup({
                 $props: settings    
             })
+        },
+        simpletoast(text){
+            this.toast({
+                text:text
+            }).show()
         }
 
     }  

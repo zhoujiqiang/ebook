@@ -57,12 +57,12 @@
     @include center;
     .toast-wrapper {
       width: 60%;
-      line-height: px2rem(20);
-      padding: px2rem(10) px2rem(20);
+      line-height: px2rem(50);
+      padding: px2rem(20) px2rem(20);
       box-sizing: border-box;
       background: #ccc;
       border-radius: px2rem(10);
-      font-size: px2rem(14);
+      font-size: px2rem(30);
       color: white;
       .toast {
         text-align: center;

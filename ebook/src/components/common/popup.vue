@@ -78,7 +78,7 @@ export default {
             width:100%;
             height:px2rem(70);
             border-bottom:px2rem(2) solid #eee;
-            font-size: px2rem(30);
+            font-size: px2rem(15);
             line-height:px2rem(14);
             padding:px2rem(15);
             box-sizing:border-box;

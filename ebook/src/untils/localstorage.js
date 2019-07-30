@@ -70,3 +70,10 @@ export function getReadTime (fileName) {
 export function SaveReadTime (fileName, time) {
     return SetBookObject(fileName, 'time', time)
 }
+
+export function saveBookShelf(shelf) {
+     return setLocalStorage('shelf', shelf)
+}
+export function getBookShelf(){
+    return getLocalStorage('shelf')
+}

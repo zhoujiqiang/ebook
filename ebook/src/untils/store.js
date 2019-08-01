@@ -4,7 +4,7 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-export function showBookDetail(vue, book) {
+export function showBookDetail (vue, book) {
   vue.$router.push({
     path: '/store/detail',
     query: {
@@ -41,7 +41,7 @@ export const categoryList = {
 
 
 
-export function getCategoryName(id) {
+export function getCategoryName (id) {
   switch (id) {
     case 1:
       return 'ComputerScience'

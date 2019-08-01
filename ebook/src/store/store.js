@@ -5,8 +5,10 @@ const store = {
         shelfSelected:[],
         shelfTitleVisible:true,
         offsetY:0,
-        ShelfList:[]
-
+        ShelfList:[
+           
+        ]
+           
     },
     mutations: {
         SET_HotSearchoffsetY (state, offsetY) {

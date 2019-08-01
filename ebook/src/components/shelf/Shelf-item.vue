@@ -11,7 +11,7 @@ import { storeShelfMixin } from  '../../untils/mixin'
 import ShelfItemAdd from './Shelf-item-add' 
 import ShelfItemBook from './Shelf-item-book' 
 import ShelfItemCategroy from './Shelf-item-categroy' 
-import {gotoStoreHome} from '../../untils/store'
+import { gotoStoreHome } from '../../untils/store'
 
 export default {
   

@@ -26,12 +26,16 @@ export default new Router({
       redirect: '/store/shelf',  
       children:[
         {
-          path:'shelf',
+          path:'/store/shelf',
           component: () => import('./views/store/StoreShelf.vue')
         },
         {
-          path: 'home',
+          path: '/store/home',
           component: () => import('./views/store/StoreHome.vue')
+        },
+        {
+          path:'/store/detail',
+          component: () => import('./views/store/StoreDetil.vue')
         }
       ]
   }

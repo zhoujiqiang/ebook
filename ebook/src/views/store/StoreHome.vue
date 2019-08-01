@@ -63,7 +63,7 @@ export default {
     mounted (){
       home().then(Response => {
           if(Response && Response.status == 200){
-              const data = Response.data
+             const data = Response.data
              const randomIndex =Math.floor( Math.random() * data.random.length)
              this.random = data.random[randomIndex]
              this.banner = data.banner
@@ -73,7 +73,6 @@ export default {
             this.categoryList = data.categoryList
             this.categories = data.categories
           }
-          
       })
     }
 }

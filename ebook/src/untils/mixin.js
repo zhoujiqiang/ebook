@@ -1,6 +1,7 @@
 import { mapGetters, mapActions } from 'vuex'
 import { THEME_LIST, addCss, removeAllcss, getReadTimeByMinute } from './book'
 import { Savelocation } from './localstorage'
+import { showBookDetail } from './store'
 
 export const ebookMixin = {
     computed:{
@@ -125,5 +126,13 @@ export const storeShelfMixin = {
             'setoffsetY',
             'setShelfList'
         ])
+    }
+}
+
+export const ebookhome = {
+    methods:{
+        showBookDetail (item) {
+            showBookDetail(this, item)
+        }
     }
 }

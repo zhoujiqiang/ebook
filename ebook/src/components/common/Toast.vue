@@ -2,7 +2,7 @@
   <transition name="fade">
     <div class="toast-bg" v-show="visible">
       <div class="toast-wrapper">
-        <div class="toast" v-html="text"></div>
+        <div class="toast" v-html="showText"></div>
       </div>
     </div>
   </transition>
@@ -20,7 +20,8 @@
     },
     data() {
       return {
-        visible: false
+        visible: false,
+        showText:''
       }
     },
     methods: {
@@ -28,6 +29,7 @@
         this.visible = false
       },
       show() {
+        this.updataText(this.text)
         clearTimeout(this.task)
         this.task = null
         this.visible = true
@@ -39,6 +41,9 @@
         clearTimeout(this.task)
         this.task = null
         this.visible = true
+      },
+      updataText(text) {
+        this.showText = text  
       }
     }
   }

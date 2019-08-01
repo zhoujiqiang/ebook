@@ -15,6 +15,8 @@
 <script>
 import { storeShelfMixin } from "../../untils/mixin";
 import { saveBookShelf } from "../../untils/localstorage";
+import { download } from '../../api/store';
+import { truncate } from 'fs';
 export default {
   mixins: [storeShelfMixin],
   computed: {
@@ -64,7 +66,34 @@ export default {
     };
   },
   methods: {
-    downloadBook() {},
+    async downloadSelectBook() {
+      for (let i = 0; i < this.shelfSelected.length; i++) {
+       await this.downloadBook(this.shelfSelected[i]).then(
+          book =>{
+            book.cache = true
+          }
+        );
+      }
+    },
+    downloadBook(book) {
+      let text =''
+      const toast = this.toast({
+        text
+      })
+      toast.continueShow()
+      return new Promise((resolve, reject) => {
+        download(book, book  => {
+          toast.remove()
+          toast.hide()  
+          resolve(book)
+          console.log('下载完毕')
+        },reject,ProgressEvent => {
+          const progress = Math.floor(ProgressEvent.loaded / ProgressEvent.total * 100) + '%'
+          const text = this.$t('shelf.progressDownload').replace('$1',`${book.fileName}.epub(${progress})`)
+          toast.updataText(text)
+        })
+      })
+    },
     hidePopup() {
       this.popupMenu.hide();
     },
@@ -90,30 +119,42 @@ export default {
         this.simpletoast(this.$t("shelf.closePrivateSuccess"));
       }
     },
-    setDownload() {
-      let isDownload;
-      if (this.isDownload) {
-        isDownload = false;
-      } else {
-        isDownload = true;
-      }
-      this.shelfSelected.forEach(book => {
-        book.cache = isDownload;
-      });
-      this.onComplete();
-      this.downloadSelectBook;
-      if (isDownload) {
-        this.simpletoast(this.$t("shelf.setDownloadSuccess"));
-      } else { 
-        this.simpletoast(this.$t("shelf.removeDownloadSuccess"));
-      }
+    removeSelectedBook() {
+       
     },
-    removeSelected(){
+    removeBook(){},
+    async setDownload() {
+      // let isDownload;
+      // if (this.isDownload) {
+      //   isDownload = false;
+      // } else {
+      //   isDownload = true;
+      // }
+      // this.shelfSelected.forEach(book => {
+      //   book.cache = isDownload;
+      // });
+      this.onComplete();
+      if(this.isDownload) {
+        this.simpletoast(this.$t("shelf.removeDownloadSuccess")); 
+      } else{
+       await this.downloadSelectBook()
+       console.log('aaa')
+         this.simpletoast(this.$t("shelf.setDownloadSuccess"));
+      }
+    
+      this.downloadSelectBook();
+      // if (isDownload) {
+      //  
+      // } else {
+      //   
+      // }
+    },
+    removeSelected() {
       this.shelfSelected.forEach(selected => {
-       this.setShelfList(this.ShelfList.filter(book => book !== selected)) 
-      })
-      this.setshelfSelected([])
-      this.onComplete()
+        this.setShelfList(this.ShelfList.filter(book => book !== selected));
+      });
+      this.setshelfSelected([]);
+      this.onComplete();
     },
     showPrivate() {
       this.popupMenu = this.popup({
@@ -161,19 +202,25 @@ export default {
         ]
       }).show();
     },
-    showRemove(){
-      let title 
-      if(this.shelfSelected.length === 1) {
-        title = this.$t('shelf.removeBookTitle').replace('$1',`《${this.shelfSelected[0].title}》`)
-      }else{
-        title = this.$t('shelf.removeBookTitle').replace('$1',this.$t('shelf.selectBooks'))
-      } 
+    showRemove() {
+      let title;
+      if (this.shelfSelected.length === 1) {
+        title = this.$t("shelf.removeBookTitle").replace(
+          "$1",
+          `《${this.shelfSelected[0].title}》`
+        );
+      } else {
+        title = this.$t("shelf.removeBookTitle").replace(
+          "$1",
+          this.$t("shelf.selectBooks")
+        );
+      }
       this.popupMenu = this.popup({
         title: title,
         btn: [
           {
-            text: this.$t('shelf.removeBook'),
-            type: 'danger',
+            text: this.$t("shelf.removeBook"),
+            type: "danger",
             click: () => {
               this.removeSelected();
             }

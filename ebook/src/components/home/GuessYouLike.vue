@@ -2,11 +2,11 @@
     <div class="guess-you-like">
         <title-view :label="$t('home.guessYouLike')" :btn="$t('home.change')" @onClick="change"></title-view>
         <div class="guess-you-like-list">
-            <div class="guess-you-like-item" v-for="(item, index) in showData" :key="index">
+            <div class="guess-you-like-item" v-for="(item, index) in showData" :key="index" @click="showBookDetail(item)">
                 <div class="img-wrapper">
                  <img :src="item.cover"  class="img">
                 </div>
-                <div class="content-wrapper">
+                <div class="content-wrapper" >
                     <div class="title-title-big" ref="title">{{item.title}}</div>
                     <div class="author-sub-title" ref="author">{{item.author}}</div>
                     <div class="result-third-title" ref="result">{{resultText(item)}}</div>    
@@ -19,9 +19,10 @@
 <script>
 import TitleView from '../../components/home/Title'
 import { ebookMixin } from '../../untils/mixin'
+import { ebookhome } from '../../untils/mixin'
 
 export default {
-     mixins : [ ebookMixin ],
+     mixins : [ ebookMixin ,ebookhome],
     components:{
        TitleView
     },

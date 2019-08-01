@@ -15,16 +15,16 @@ export function clearLocalStorage (key) {
 }
 
 export function SetBookObject (fileName, key, value) {
-    let book = getLocalStorage(`$(fileName)-info`)
+    let book = getLocalStorage(`${fileName}-info`)
     if (!book) {
         book = {}
     }
     book[key] = value
-    setLocalStorage(`$(fileName)-info`, book) 
+    setLocalStorage(`${fileName}-info`, book) 
  }    
 
  export function GetBookObject (fileName, key, value) {
-    let book = getLocalStorage(`$(fileName)-info`)
+    let book = getLocalStorage(`${fileName}-info`)
     if (book) {
         return book[key]
     } else {
@@ -71,9 +71,9 @@ export function SaveReadTime (fileName, time) {
     return SetBookObject(fileName, 'time', time)
 }
 
-export function saveBookShelf(shelf) {
+export function saveBookShelf (shelf) {
      return setLocalStorage('shelf', shelf)
 }
-export function getBookShelf(){
+export function getBookShelf () {
     return getLocalStorage('shelf')
 }

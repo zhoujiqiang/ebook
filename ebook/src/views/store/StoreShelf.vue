@@ -25,6 +25,7 @@ import {  home } from '../../api/store'
 import { shelf } from '../../api/store'
 import { AppendAddToShelf} from '../../untils/store'
 import ShelfFooter from '../../components/shelf/Shelf-footer'
+import { getBookshelf } from '../../untils/localstorage'
 export default {
     watch:{
         isEditMode(isEditMode){
@@ -59,8 +60,8 @@ export default {
         shelf().then(res => {
             if (res && res.status == 200){
                 const data = res.data
-                this.datalist = data.bookList
-                this.setShelfList (AppendAddToShelf(this.datalist))
+              this.datalist = data.bookList
+               this.setShelfList (AppendAddToShelf(this.datalist))
                 console.log(this.ShelfList)
             }
         })

@@ -18,8 +18,8 @@
 
 <script>
 import TitleView from '../../components/home/Title'
-import { ebookMixin } from '../../untils/mixin'
-import { ebookhome } from '../../untils/mixin'
+import { ebookMixin ,ebookhome} from '../../untils/mixin'
+
 
 export default {
      mixins : [ ebookMixin ,ebookhome],

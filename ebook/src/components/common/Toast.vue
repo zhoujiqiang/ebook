@@ -25,7 +25,7 @@
       }
     },
     methods: {
-      hide() {
+      hide( ) {
         this.visible = false
       },
       show() {

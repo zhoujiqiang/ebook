@@ -3,7 +3,7 @@
         <div class="category-book">
             <title-view :label="categoryText(data.category)" :btn="$t('home.seeAll')"></title-view>
             <div class="category-book-list">
-                <div class="category-book-item"  v-for="(item, index) in data.list" :key="index">
+                <div class="category-book-item"  v-for="(item, index) in data.list" :key="index" @click="showBookDetail(item)">
                     <div class="img-wrapper">
                         <img :src="item.cover" class="img">
                     </div>
@@ -19,7 +19,9 @@
 <script>
 import TitleView from './Title'
 import { categoryText } from '../../untils/store' 
+import { ebookMixin ,ebookhome} from '../../untils/mixin'
 export default {
+     mixins : [ ebookMixin ,ebookhome],
     components:{
         TitleView
     },

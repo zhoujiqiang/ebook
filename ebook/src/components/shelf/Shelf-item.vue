@@ -1,5 +1,5 @@
 <template>
-    <div class="shelf-item" :class="{'shelf-item-shadow':data.type===1 || data.type===2 }"  @click="onItemClick">
+    <div class="shelf-item" :class="{'shelf-item-shadow':data.type===1 || data.type===2 }"  @click="onItemClick()">
         <component :is="item" :data="data"></component>
         <div class="icon-selected"
         :class="{'is-selected':data.selected}"
@@ -7,14 +7,15 @@
     </div>
 </template>
 <script>
-import { storeShelfMixin } from  '../../untils/mixin' 
+import { storeShelfMixin,ebookhome ,ebookMixin } from  '../../untils/mixin' 
 import ShelfItemAdd from './Shelf-item-add' 
 import ShelfItemBook from './Shelf-item-book' 
 import ShelfItemCategroy from './Shelf-item-categroy' 
-import { gotoStoreHome } from '../../untils/store'
+import { gotoStoreHome, showBookDetail } from '../../untils/store'
+import { constants } from 'fs';
 
 export default {
-    mixins: [storeShelfMixin],
+    mixins: [storeShelfMixin, ebookhome,ebookMixin],
     props:{
         data: Object
     },   
@@ -32,15 +33,28 @@ export default {
     },
     methods:{
             onItemClick(){
+               
                 if(this.isEditMode){
                     this.data.selected = !this.data.selected
                     if(this.data.selected){
                         this.shelfSelected.pushWithoutDuplicate(this.data)
                     }else{
                         this.setshelfSelected(this.shelfSelected.filter(item => item.id !== this.data.id))
+                        
                     }
                 }else{
-                     if(this.data.type === 3){
+                    if(this.data.type === 1){
+                        //  console.log(this.data.categoryText)
+                        //  showBookDetail(this.data)
+                        this.$router.push({
+                        path:'/store/detail',
+                          query: {
+                             fileName: this.data.fileName,
+                             category: this.data.categoryText
+                                 }
+                        })
+                    }
+                    else if(this.data.type === 3){
                     this.$router.push({
                      path:'/store/home'
                         })

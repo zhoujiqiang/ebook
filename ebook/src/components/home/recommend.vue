@@ -2,8 +2,8 @@
    <div class="recommend">
        <title-view :label="$t('home.recommend')" :btn="$t('home.seeAll')"></title-view>  
        <div class="recommend-list">
-           <div class="recommend-item" v-for="(item, index) in data" :key="index">
-                <div class="img-wrapper">
+           <div class="recommend-item" v-for="(item, index) in data" :key="index" @click="showBookDetail(item)">
+                <div class="img-wrapper" >
                     <img :src="item.cover" class="img">
                 </div> 
                 <div class="content-wrapper">
@@ -17,7 +17,9 @@
 
 <script>
 import TitleView from '../../components/home/Title'
+import { ebookMixin ,ebookhome} from '../../untils/mixin'
 export default {
+    mixins : [ ebookMixin ,ebookhome],
     components:{
         TitleView
     },

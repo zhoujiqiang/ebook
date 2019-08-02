@@ -1,7 +1,7 @@
 <template>
   <div class="shelf-List">
-    <div class="shelf-list-item-wrapper" v-for="(item, index) in datalist " :key="index" >
-        <shelf-item  class="shelf-item" :data="item" :style="{ height: itemHeight }"  @click="showBookDetail(item)"></shelf-item> 
+    <div class="shelf-list-item-wrapper" v-for="(item, index) in datalist " :key="index"  >
+        <shelf-item  class="shelf-item" :data="item" :style="{ height: itemHeight }"></shelf-item> 
         <div class="shelf-list-title-wrapper">
           <span class="shelf-list-title-small">{{item.title}}</span>
         </div>
@@ -32,7 +32,6 @@ export default {
       datalist:Array
     },
     methods:{
-
     },
     mounted(){
     }

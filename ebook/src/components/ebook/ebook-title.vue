@@ -5,10 +5,10 @@
                 <span class="icon-back"></span>
             </div>
             <div class="right">
-                <div class="icon-wrapper">
-                 <span class="icon-shelf"></span>   
+                <div class="icon-wrapper" @click="gotoshelf()">
+                 <span class="icon-shelf" ></span>   
                 </div>
-                <div class="icon-wrapper">
+                <div class="icon-wrapper" @click="gotohome()">
                  <span class="icon-cart"></span>
                 </div>
                 <div class="icon-wrapper">
@@ -25,7 +25,14 @@ export default {
   mixins: [ebookMixin],
   methods: {
     back () {
+       this.$router.go(-1);
      // console.log('back')
+    },
+    gotoshelf() {
+      this.$router.push('/store/shelf')
+    },
+    gotohome(){
+      this.$router.push('/store/home')
     }
   }    
 }

@@ -1,7 +1,7 @@
 <template>
   <div class="shelf-List">
     <div class="shelf-list-item-wrapper" v-for="(item, index) in datalist " :key="index" >
-        <shelf-item  class="shelf-item" :data="item" :style="{height: itemHeight }" ></shelf-item> 
+        <shelf-item  class="shelf-item" :data="item" :style="{ height: itemHeight }"  @click="showBookDetail(item)"></shelf-item> 
         <div class="shelf-list-title-wrapper">
           <span class="shelf-list-title-small">{{item.title}}</span>
         </div>
@@ -9,15 +9,15 @@
   </div>
 </template>
 <script>
-import { storeShelfMixin } from  '../../untils/mixin'   
+import { storeShelfMixin } from  '../../untils/mixin'  
+import { ebookMixin } from '../../untils/mixin'
+import { ebookhome } from '../../untils/mixin'
 import ShelfItem from '../../components/shelf/Shelf-item'
 import { realPx } from '../../untils/utils';
- 
 export default {
-    mixins: [storeShelfMixin],
+     mixins : [ ebookMixin ,ebookhome],
     data(){
       return{
-       
       }
     },
     components:{
@@ -32,11 +32,9 @@ export default {
       datalist:Array
     },
     methods:{
-      ShowtoDetail(){}
-      
+
     },
     mounted(){
-     
     }
 }
 </script>

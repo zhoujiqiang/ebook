@@ -14,7 +14,6 @@ import ShelfItemCategroy from './Shelf-item-categroy'
 import { gotoStoreHome } from '../../untils/store'
 
 export default {
-  
     mixins: [storeShelfMixin],
     props:{
         data: Object
@@ -44,10 +43,9 @@ export default {
                      if(this.data.type === 3){
                     this.$router.push({
                      path:'/store/home'
-                    })
+                        })
+                     }
                 }
-                }
-               
             }
     }
 }

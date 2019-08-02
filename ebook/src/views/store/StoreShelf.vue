@@ -9,7 +9,7 @@
             @onScroll="onScroll"
             ref="Scroll">
              <shelf-search></shelf-search>
-             <shelf-list :datalist="ShelfList"></shelf-list>
+             <shelf-list :datalist="datalist"></shelf-list>
         </scroll>
         <shelf-footer></shelf-footer>
     </div>    
@@ -65,9 +65,12 @@ export default {
             if (res && res.status == 200){
                 const data = res.data
               this.datalist = data.bookList
+              console.log(this.datalist)
                this.setShelfList (AppendAddToShelf(this.datalist))
-               this.setShelfList (getLocalStorage('shelf'), this.bookList)
-                console.log(ShelfList )
+              this.setShelfList (getLocalStorage('shelf'), this.bookList)
+               this.datalist = this.ShelfList
+               console.log(this.ShelfList)
+               console.log(this.datalist)
                 
             }
         })    

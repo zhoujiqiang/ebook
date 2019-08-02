@@ -111,7 +111,16 @@ export function addToShelf (book) {
   bookList.forEach((item, index) => {
       item.id = index + 1
   })
+  appendAddToBookList(bookList)
   setLocalStorage(BOOK_SHELF_KEY, bookList)
+}
+export function appendAddToBookList (bookList) {
+  bookList.push({
+    cover: '',
+    title: '',
+    type: 3,
+    id: Number.MAX_SAFE_INTEGER
+  })
 }
 
 export function clearAddFromBookList (bookList) {

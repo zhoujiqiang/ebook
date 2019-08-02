@@ -62,10 +62,9 @@
         <div class="bottom-wrapper">
       <div class="bottom-btn" @click.stop.prevent="readBook()" >{{$t('detail.read')}}</div>
       <div class="bottom-btn" >{{$t('detail.listen')}}</div>
-      <div class="bottom-btn" v-if="this.inBookShelf">
+      <div class="bottom-btn" @click.stop.prevent="addOrRemoveShelf()">
+            <span class="icon-check" v-if="this.inBookShelf" ></span>
            {{inBookShelf ? $t('detail.isAddedToShelf') : $t('detail.addOrRemoveShelf')}}
-        <span class="icon-check"></span>
-      
       </div>
     </div>
 
@@ -76,8 +75,10 @@
 import DetailTitle from "../../components/detail/DetailTitle.vue";
 import BookInfo from "../../components/detail/BookInfo.vue";
 import Scroll from "../../components/common/Scroll";
-import { detail } from "../../api/store.js";
+import { detail, shelf } from "../../api/store.js";
 import { fileURLToPath } from "url";
+import { getLocalStorage ,getBookShelf,clearLocalStorage } from "../../untils/localstorage.js"
+import { addToShelf, removeFromBookShelf } from "../../untils/book.js"
 import Epub from "epubjs";
 export default {
   components: {
@@ -87,15 +88,14 @@ export default {
   },
   data() {
     return {
-      BookItem: null,
+      bookItem: null,
+      bookShelf:null,
       cover: null,
       metadata:null,
       categoryText:null,
       navigation:null,
       description:null,
-      displayed :null
-
-      
+      displayed :null,
     };
   },
   computed: {
@@ -122,14 +122,27 @@ export default {
         return ''
         }
       },
+
       flatNavigation(){
          if (this.navigation) {
             return Array.prototype.concat.apply([], Array.prototype.concat.apply([], this.doFlatNavigation(this.navigation.toc)))
          }else{
            return []
          }
-      }
+      },
+      inBookShelf() {
+        if(this.bookItem && this.bookShelf) {
+           const flatShelf = (function flatten(arr) {
+            return [].concat(...arr.map(v => v.itemList ? [v, ...flatten(v.itemList)] : v))
+          })(this.bookShelf).filter(item => item.type === 1)
+        const book = flatShelf.filter(item => item.fileName === this.bookItem.fileName)
+          return book && book.length > 0
+        }else {
+            return false
+        }
+      } 
   },
+  
   methods: {
     readBook(){
       this.$router.push({
@@ -154,18 +167,7 @@ export default {
             return this.rendition.display(location)
           }
         }
-      },
-       inBookShelf() {
-        if (this.bookItem && this.bookShelf) {
-          const flatShelf = (function flatten(arr) {
-            return [].concat(...arr.map(v => v.itemList ? [v, ...flatten(v.itemList)] : v))
-          })(this.bookShelf).filter(item => item.type === 1)
-          const book = flatShelf.filter(item => item.fileName === this.bookItem.fileName)
-          return book && book.length > 0
-        } else {
-          return false
-        }
-      },
+      },      
     parseBook(blob) {
       this.book = new Epub(blob)
       this.book.loaded.metadata.then(res => {
@@ -187,12 +189,8 @@ export default {
                 this.description = text
               })
             }
-   
-        }
-      
+        }    
      })
-      
-       
     },
     doFlatNavigation(content, deep = 1) {
         const arr = []
@@ -204,6 +202,14 @@ export default {
           }
         })
         return arr
+      },
+      addOrRemoveShelf(){
+        if(this.inBookShelf){
+          removeFromBookShelf(this.bookItem)
+        }else{
+             addToShelf(this.bookItem)
+        }
+        this.bookShelf = getLocalStorage('shelf')
       },
     Init() {
       this.fileName = this.$route.query.fileName
@@ -218,9 +224,8 @@ export default {
             res.data.data
           ) {
             const data = res.data.data;
-            this.BookItem = data;
+            this.bookItem = data;
             this.cover = data.cover;
-
             let rootFile = data.rootFile;
             if (rootFile.startsWith("/")) {
               rootFile = rootFile.substring(1, rootFile.length);
@@ -229,11 +234,10 @@ export default {
               this.fileName
             }.epub`;
             this.parseBook(this.opf);
-            
           }
         })
       }
-       
+         this.bookShelf = getLocalStorage('shelf')    
     }
   },
   mounted() {

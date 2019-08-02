@@ -23,9 +23,9 @@ import { storeShelfMixin } from  '../../untils/mixin'
 import Scroll from '../../components/common/Scroll'
 import {  home } from '../../api/store'
 import { shelf } from '../../api/store'
-import { AppendAddToShelf} from '../../untils/store'
+import { AppendAddToShelf } from '../../untils/store'
 import ShelfFooter from '../../components/shelf/Shelf-footer'
-import { getBookshelf } from '../../untils/localstorage'
+import { getBookshelf,getLocalStorage } from '../../untils/localstorage'
 export default {
     watch:{
         isEditMode(isEditMode){
@@ -39,7 +39,9 @@ export default {
     data(){
         return{
             datalist:null,
-            scrollBottom:0
+            scrollBottom:0,
+            
+            
         }
     },
     mixins: [storeShelfMixin],
@@ -57,15 +59,19 @@ export default {
 
     },
     mounted() {
+        // this.datalist = getLocalStorage('shelf')
+        // console.log(this.datalist)
         shelf().then(res => {
             if (res && res.status == 200){
                 const data = res.data
               this.datalist = data.bookList
                this.setShelfList (AppendAddToShelf(this.datalist))
-                console.log(this.ShelfList)
+               this.setShelfList (getLocalStorage('shelf'), this.bookList)
+                console.log(ShelfList )
+                
             }
-        })
-    }
+        })    
+    }    
 }
 </script>
 
